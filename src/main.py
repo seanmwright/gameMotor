@@ -8,6 +8,7 @@ import pymunk
 from pymunk import pyglet_util
 
 from Utils import Text
+from InputManager import InputManager
 
 DEBUG = True
 gameName = "gameMotor2D"
@@ -21,6 +22,15 @@ pyglet.resource.reindex()
 # create window
 window = pyglet.window.Window(800,600,vsync=not DEBUG)
 window.set_caption(gameName)
+
+# start managers
+inputManager = InputManager(key,mouse)
+#TODO configManager
+#TODO eventManager
+#TODO uiManager
+#TODO sceneManager
+#TODO audioManager
+#TODO objectManager
 
 # debug
 if DEBUG:
@@ -46,20 +56,14 @@ def toggleFullscreen():
 
 @window.event
 def on_key_press(symbol, modifiers):
-    global DEBUG
-    if DEBUG:
-        print(str(symbol),':',str(modifiers))
     # toggle fullscreen
     if symbol==key.F11 or (modifiers==4 and symbol==key.ENTER):
         toggleFullscreen()
-    # TODO input manager
-    #inputManager.handleKeyPress(symbol,modifiers)
+    inputManager.handleKeys(symbol,modifiers)
 
 @window.event
 def on_mouse_press(x,y,button,modifiers):
-    global DEBUG
-    if button == mouse.LEFT:
-        print('The left mouse button was pressed.')
+    inputManager.handleMouse(x,y,button,modifiers)
 
 @window.event
 def on_draw():
