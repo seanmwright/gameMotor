@@ -10,6 +10,7 @@ from pymunk import pyglet_util
 from Utils import Text
 
 DEBUG = True
+gameName = "gameMotor2D"
 
 # setup resource path
 pyglet.resource.path = ['../resources']
@@ -18,12 +19,14 @@ pyglet.resource.reindex()
 #TODO load config file
 
 # create window
-window = pyglet.window.Window(800,600)
+window = pyglet.window.Window(800,600,vsync=not DEBUG)
+window.set_caption(gameName)
 
 # debug
 if DEBUG:
     print("pyglet version: "+str(pyglet.version))
     print("pymunk version: "+str(pymunk.version))
+    print("vsync: "+str(window.vsync))
     timeElap = 0
     timeText = Text( int(timeElap), 32, (window.width/2,50))
     fpsDisplay = pyglet.clock.ClockDisplay()
