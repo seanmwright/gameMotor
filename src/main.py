@@ -27,7 +27,7 @@ window.set_caption(gameName)
 
 # create physics space
 space = pymunk.Space()
-space.gravity = (0.0,-600.0)
+#space.damping = 100.0
 if DEBUG:
     debugDrawOptions = pyglet_util.DrawOptions()
 
