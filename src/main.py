@@ -22,12 +22,12 @@ pyglet.resource.reindex()
 #TODO load config file
 
 # create window
-window = pyglet.window.Window(800,600,vsync=not DEBUG)
+window = pyglet.window.Window(1440,810,vsync=not DEBUG)
 window.set_caption(gameName)
 
 # create physics space
 space = pymunk.Space()
-#space.damping = 100.0
+space.damping = .7
 if DEBUG:
     debugDrawOptions = pyglet_util.DrawOptions()
 
@@ -50,7 +50,7 @@ if DEBUG:
     print("pymunk version: "+str(pymunk.version))
     print("vsync: "+str(window.vsync))
     timeElap = 0
-    timeText = Text( int(timeElap), 32, (window.width/2,50))
+    timeText = Text(int(timeElap),32,(window.width/2,50))
     fpsDisplay = pyglet.clock.ClockDisplay()
 
 def update(dt):
@@ -70,10 +70,19 @@ def toggleFullscreen():
 
 @window.event
 def on_key_press(symbol, modifiers):
+    global objectManager
     # toggle fullscreen
     if symbol==key.F11 or (modifiers==4 and symbol==key.ENTER):
         toggleFullscreen()
-    inputManager.handleKeys(symbol,modifiers)
+    if symbol==key.W:
+        objectManager.movePlayer(1)
+    if symbol==key.S:
+        objectManager.movePlayer(-1)
+    if symbol==key.A:
+        objectManager.turnPlayer(1)
+    if symbol==key.D:
+        objectManager.turnPlayer(-1)
+    #inputManager.handleKeys(symbol,modifiers)
 
 @window.event
 def on_mouse_press(x,y,button,modifiers):
@@ -82,7 +91,6 @@ def on_mouse_press(x,y,button,modifiers):
 @window.event
 def on_draw():
     global DEBUG
-    pyglet.gl.glClearColor(255,255,255,255)
     window.clear()
     if DEBUG:
         timeText.draw()

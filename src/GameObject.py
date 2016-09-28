@@ -1,5 +1,6 @@
 import pyglet
 import pymunk
+import math
 
 class GameObject(object):
     def __init__(self,spriteBatch,space,x,y):
@@ -23,4 +24,4 @@ class GameObject(object):
 
     def update(self,dt):
         self.sprite.position = self.body.position
-        self.sprite.rotation = self.body.angle
+        self.sprite.rotation = math.degrees(-self.body.angle)
