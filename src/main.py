@@ -9,6 +9,8 @@ from pymunk import pyglet_util
 
 from Utils import Text
 from InputManager import InputManager
+from ObjectManager import ObjectManager
+from GameObject import GameObject
 
 DEBUG = True
 gameName = "gameMotor2D"
@@ -23,6 +25,12 @@ pyglet.resource.reindex()
 window = pyglet.window.Window(800,600,vsync=not DEBUG)
 window.set_caption(gameName)
 
+# create physics space
+space = pymunk.Space()
+space.gravity = (0.0,-600.0)
+if DEBUG:
+    debugDrawOptions = pyglet_util.DrawOptions()
+
 # start managers
 inputManager = InputManager(key,mouse)
 #TODO configManager
@@ -30,7 +38,11 @@ inputManager = InputManager(key,mouse)
 #TODO uiManager
 #TODO sceneManager
 #TODO audioManager
-#TODO objectManager
+objectManager = ObjectManager()
+
+spriteBatch = pyglet.graphics.Batch()
+
+objectManager.addObject(GameObject(spriteBatch,space,window.width/2,400))
 
 # debug
 if DEBUG:
@@ -44,6 +56,8 @@ if DEBUG:
 def update(dt):
     global DEBUG
     global timeElap
+    space.step(1/60.0)
+    objectManager.updateObjects(dt)
     if DEBUG:
         timeElap += dt
         timeText.update(int(timeElap))
@@ -68,11 +82,13 @@ def on_mouse_press(x,y,button,modifiers):
 @window.event
 def on_draw():
     global DEBUG
+    pyglet.gl.glClearColor(255,255,255,255)
     window.clear()
-    #TODO draw
     if DEBUG:
         timeText.draw()
         fpsDisplay.draw()
+        space.debug_draw(debugDrawOptions)
+    spriteBatch.draw()
 
 if __name__ == '__main__':
     pyglet.clock.schedule_interval(update, 1/240.0)
