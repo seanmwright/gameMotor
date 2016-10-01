@@ -19,6 +19,7 @@ gameName = "gameMotor2D"
 pyglet.resource.path = ['../resources']
 pyglet.resource.reindex()
 
+#TODO configManager
 #TODO load config file
 
 # create window
@@ -27,13 +28,12 @@ window.set_caption(gameName)
 
 # create physics space
 space = pymunk.Space()
-space.damping = .7
+space.damping = .6
 if DEBUG:
     debugDrawOptions = pyglet_util.DrawOptions()
 
 # start managers
 inputManager = InputManager(key,mouse)
-#TODO configManager
 #TODO eventManager
 #TODO uiManager
 #TODO sceneManager
