@@ -15,7 +15,7 @@ class Text( object ):
         self.fontSize = fontSize
         self.position = position
         return label
-    
+
     def draw(self):
         self.label.draw()
 
