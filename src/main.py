@@ -80,9 +80,9 @@ def on_key_press(symbol, modifiers):
         toggleFullscreen()
 
     # menu controls
-    if symbol==key.UP:
+    if symbol==key.UP or symbol==key.K:
         menu.focusPrevious()
-    if symbol==key.DOWN:
+    if symbol==key.DOWN or symbol==key.J:
         menu.focusNext()
     if symbol==key.ENTER:
         menu.forward()
