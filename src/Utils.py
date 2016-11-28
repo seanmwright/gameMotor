@@ -2,6 +2,7 @@ import pyglet
 
 class Text( object ):
     def __init__(self, text, fontSize, position):
+        self.text = text
         self.label = self.createLabel( text, fontSize, position )
 
     def createLabel( self, text, fontSize, position ):
@@ -16,8 +17,19 @@ class Text( object ):
         self.position = position
         return label
 
+    def highlight(self):
+        self.label.color = (255,0,0,255)
+
+    def unhighlight(self):
+        self.label.color = (255,255,255,255)
+
+    def move(self, position):
+        self.label.x = position[0]
+        self.label.y = position[1]
+
     def draw(self):
         self.label.draw()
 
     def update(self, text):
-        self.label = self.createLabel( text, self.fontSize, self.position)
+        self.label.text = str(text)
+

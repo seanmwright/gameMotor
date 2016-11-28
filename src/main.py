@@ -11,6 +11,7 @@ from Utils import Text
 from InputManager import InputManager
 from ObjectManager import ObjectManager
 from GameObject import GameObject
+from Menu import Menu
 
 DEBUG = True
 gameName = "gameMotor2D"
@@ -42,7 +43,9 @@ objectManager = ObjectManager()
 
 spriteBatch = pyglet.graphics.Batch()
 
-objectManager.addObject(GameObject(spriteBatch,space,window.width/2,400))
+#objectManager.addObject(GameObject(spriteBatch,space,window.width/2,400))
+
+menu = Menu(window)
 
 # debug
 if DEBUG:
@@ -74,6 +77,18 @@ def on_key_press(symbol, modifiers):
     # toggle fullscreen
     if symbol==key.F11 or (modifiers==4 and symbol==key.ENTER):
         toggleFullscreen()
+
+    # menu controls
+    if symbol==key.UP:
+        menu.focusPrevious()
+    if symbol==key.DOWN:
+        menu.focusNext()
+    if symbol==key.ENTER:
+        menu.forward()
+    if symbol==key.BACKSPACE:
+        menu.backward()
+
+    # movement
     if symbol==key.W:
         objectManager.movePlayer(1)
     if symbol==key.S:
@@ -82,6 +97,7 @@ def on_key_press(symbol, modifiers):
         objectManager.turnPlayer(1)
     if symbol==key.D:
         objectManager.turnPlayer(-1)
+
     #inputManager.handleKeys(symbol,modifiers)
 
 @window.event
@@ -96,6 +112,7 @@ def on_draw():
         timeText.draw()
         fpsDisplay.draw()
         space.debug_draw(debugDrawOptions)
+    menu.draw()
     spriteBatch.draw()
 
 if __name__ == '__main__':
