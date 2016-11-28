@@ -46,6 +46,7 @@ spriteBatch = pyglet.graphics.Batch()
 #objectManager.addObject(GameObject(spriteBatch,space,window.width/2,400))
 
 menu = Menu(window)
+menu.rootNode.list[2].function = pyglet.app.exit
 
 # debug
 if DEBUG:
