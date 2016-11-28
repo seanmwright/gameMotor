@@ -85,8 +85,10 @@ def on_key_press(symbol, modifiers):
         menu.focusNext()
     if symbol==key.ENTER:
         menu.forward()
-    if symbol==key.BACKSPACE:
+        return True
+    if symbol==key.ESCAPE:
         menu.backward()
+        return True
 
     # movement
     if symbol==key.W:
