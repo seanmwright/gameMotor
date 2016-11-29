@@ -32,23 +32,25 @@ class Menu(object):
 
         self.arrangeMenu(self.currentNode)
 
-    def forward(self):
+    def on_menu_confirm(self):
         if isinstance(self.currentNode.list[self.currentNode.focus],MenuNode):
             self.previousNodes.append(self.currentNode)
             self.currentNode = self.currentNode.list[self.currentNode.focus]
             self.arrangeMenu(self.currentNode)
         else:
             self.currentNode.list[self.currentNode.focus].function()
+        return True
 
-    def backward(self):
+    def on_menu_back(self):
         if len(self.previousNodes) > 0:
             self.currentNode = self.previousNodes.pop()
             self.arrangeMenu(self.currentNode)
+        return True
 
-    def focusNext(self):
+    def on_menu_down(self):
         self.currentNode.focusNext()
 
-    def focusPrevious(self):
+    def on_menu_up(self):
         self.currentNode.focusPrevious()
 
     def arrangeMenu(self, node):

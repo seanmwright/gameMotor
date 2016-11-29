@@ -35,7 +35,7 @@ if DEBUG:
 
 # start managers
 inputManager = InputManager(key,mouse)
-#TODO eventManager
+#TODO eventManager?
 #TODO uiManager
 #TODO sceneManager
 #TODO audioManager
@@ -47,6 +47,7 @@ spriteBatch = pyglet.graphics.Batch()
 
 menu = Menu(window)
 menu.rootNode.list[2].function = pyglet.app.exit
+inputManager.push_handlers(menu)
 
 # debug
 if DEBUG:
@@ -75,22 +76,14 @@ def toggleFullscreen():
 @window.event
 def on_key_press(symbol, modifiers):
     global objectManager
+
     # toggle fullscreen
     if symbol==key.F11 or (modifiers==4 and symbol==key.ENTER):
         toggleFullscreen()
 
-    # menu controls
-    if symbol==key.UP or symbol==key.K:
-        menu.focusPrevious()
-    if symbol==key.DOWN or symbol==key.J:
-        menu.focusNext()
-    if symbol==key.ENTER:
-        menu.forward()
-        return True
-    if symbol==key.ESCAPE:
-        menu.backward()
-        return True
+    inputManager.handleKeyboard(symbol, modifiers)
 
+'''
     # movement
     if symbol==key.W:
         objectManager.movePlayer(1)
@@ -100,8 +93,7 @@ def on_key_press(symbol, modifiers):
         objectManager.turnPlayer(1)
     if symbol==key.D:
         objectManager.turnPlayer(-1)
-
-    #inputManager.handleKeys(symbol,modifiers)
+'''
 
 @window.event
 def on_mouse_press(x,y,button,modifiers):
