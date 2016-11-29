@@ -49,9 +49,11 @@ class Menu(object):
 
     def on_menu_down(self):
         self.currentNode.focusNext()
+        return True
 
     def on_menu_up(self):
         self.currentNode.focusPrevious()
+        return True
 
     def arrangeMenu(self, node):
         self.currentNode.label.move(self.titlePostition)

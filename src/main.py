@@ -35,8 +35,6 @@ if DEBUG:
 
 # start managers
 inputManager = InputManager(key,mouse)
-#TODO eventManager?
-#TODO uiManager
 #TODO sceneManager
 #TODO audioManager
 objectManager = ObjectManager()
@@ -75,25 +73,12 @@ def toggleFullscreen():
 
 @window.event
 def on_key_press(symbol, modifiers):
-    global objectManager
-
     # toggle fullscreen
     if symbol==key.F11 or (modifiers==4 and symbol==key.ENTER):
         toggleFullscreen()
 
-    inputManager.handleKeyboard(symbol, modifiers)
-
-'''
-    # movement
-    if symbol==key.W:
-        objectManager.movePlayer(1)
-    if symbol==key.S:
-        objectManager.movePlayer(-1)
-    if symbol==key.A:
-        objectManager.turnPlayer(1)
-    if symbol==key.D:
-        objectManager.turnPlayer(-1)
-'''
+    # pass input to input manager
+    return inputManager.handleKeyboard(symbol, modifiers)
 
 @window.event
 def on_mouse_press(x,y,button,modifiers):
