@@ -44,7 +44,7 @@ spriteBatch = pyglet.graphics.Batch()
 #objectManager.addObject(GameObject(spriteBatch,space,window.width/2,400))
 
 menu = Menu(window)
-menu.rootNode.list[2].function = pyglet.app.exit
+menu.rootNode.children[2].function = pyglet.app.exit
 inputManager.push_handlers(menu)
 
 # debug
@@ -83,6 +83,10 @@ def on_key_press(symbol, modifiers):
 @window.event
 def on_mouse_press(x,y,button,modifiers):
     inputManager.handleMouse(x,y,button,modifiers)
+
+@window.event
+def on_mouse_motion(x, y, dx, dy):
+    inputManager.handleMouse(x, y)
 
 @window.event
 def on_draw():

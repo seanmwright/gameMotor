@@ -21,13 +21,18 @@ class InputManager(pyglet.event.EventDispatcher):
             self.dispatch_event('on_menu_back')
             return True
 
-    def handleMouse(self, x, y, button, modifiers):
-        pass
+    def handleMouse(self, x, y, button=None, modifiers=None):
+        if button == None:
+            self.dispatch_event('on_mouse_motion', x, y)
+        else:
+            self.dispatch_event('on_mouse_press', x, y, button)
 
 InputManager.register_event_type('on_menu_up')
 InputManager.register_event_type('on_menu_down')
 InputManager.register_event_type('on_menu_confirm')
 InputManager.register_event_type('on_menu_back')
+InputManager.register_event_type('on_mouse_press')
+InputManager.register_event_type('on_mouse_motion')
 
 '''
     # movement
