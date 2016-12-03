@@ -24,7 +24,10 @@ pyglet.resource.reindex()
 #TODO load config file
 
 # create window
-window = pyglet.window.Window(1440,810,vsync=not DEBUG)
+window = pyglet.window.Window(1440,810,
+        vsync=not DEBUG,
+        #style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS,
+            )
 window.set_caption(gameName)
 
 # create physics space
@@ -78,6 +81,7 @@ def on_key_press(symbol, modifiers):
         toggleFullscreen()
 
     # pass input to input manager
+    # return to terminate event
     return inputManager.handleKeyboard(symbol, modifiers)
 
 @window.event
