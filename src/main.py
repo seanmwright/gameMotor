@@ -56,7 +56,7 @@ if DEBUG:
     print("pymunk version: "+str(pymunk.version))
     print("vsync: "+str(window.vsync))
     timeElap = 0
-    timeText = Text(int(timeElap),32,(window.width/2,50))
+    timeText = Text(int(timeElap), 32, (window.width/2,50), (255, 255, 255, 255))
     fpsDisplay = pyglet.clock.ClockDisplay()
 
 def update(dt):
