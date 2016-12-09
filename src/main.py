@@ -24,9 +24,9 @@ pyglet.resource.reindex()
 #TODO load config file
 
 # create window
-window = pyglet.window.Window(1440,810,
+window = pyglet.window.Window(800,600,
         vsync=not DEBUG,
-        #style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS,
+        style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS,
             )
 window.set_caption(gameName)
 
