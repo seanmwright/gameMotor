@@ -22,9 +22,8 @@ class SceneManager(object):
 
         :dt: TODO
         """
-        #objectManager.updateObjects(dt)
+        self.scenes[-1].update(dt)
         #space.step(1/60.0)
-        pass
 
     def draw(self):
         """TODO: Docstring for draw.
