@@ -8,10 +8,14 @@ import pymunk
 from pymunk import pyglet_util
 
 from Utils import Text
+
 from InputManager import InputManager
+from SceneManager import SceneManager
+
 from ObjectManager import ObjectManager
 from GameObject import GameObject
-from Menu import Menu
+
+from MainMenuScene import MainMenuScene
 
 DEBUG = True
 gameName = "gameMotor2D"
@@ -38,17 +42,12 @@ if DEBUG:
 
 # start managers
 inputManager = InputManager(key,mouse)
-#TODO sceneManager
+sceneManager = SceneManager()
 #TODO audioManager
 objectManager = ObjectManager()
 
-spriteBatch = pyglet.graphics.Batch()
-
-#objectManager.addObject(GameObject(spriteBatch,space,window.width/2,400))
-
-menu = Menu(window)
-menu.rootNode.children[2].function = pyglet.app.exit
-inputManager.push_handlers(menu)
+# switch to main menu scene
+sceneManager.changeScene( MainMenuScene(window, inputManager) )
 
 # debug
 if DEBUG:
@@ -62,8 +61,7 @@ if DEBUG:
 def update(dt):
     global DEBUG
     global timeElap
-    space.step(1/60.0)
-    objectManager.updateObjects(dt)
+    sceneManager.update(dt)
     if DEBUG:
         timeElap += dt
         timeText.update(int(timeElap))
@@ -81,7 +79,7 @@ def on_key_press(symbol, modifiers):
         toggleFullscreen()
 
     # pass input to input manager
-    # return to terminate event
+    # return to terminate input event
     return inputManager.handleKeyboard(symbol, modifiers)
 
 @window.event
@@ -96,12 +94,11 @@ def on_mouse_motion(x, y, dx, dy):
 def on_draw():
     global DEBUG
     window.clear()
+    sceneManager.draw()
     if DEBUG:
         timeText.draw()
         fpsDisplay.draw()
         space.debug_draw(debugDrawOptions)
-    menu.draw()
-    spriteBatch.draw()
 
 if __name__ == '__main__':
     pyglet.clock.schedule_interval(update, 1/240.0)
