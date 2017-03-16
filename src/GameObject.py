@@ -13,7 +13,7 @@ class GameObject(object):
         image.anchor_y = image.height/2
         return pyglet.sprite.Sprite(image,batch=spriteBatch)
 
-    def addPhyiscal(self, space, x, y):
+    def addPhyiscal(self,space,x,y):
         self.mass = 1
         self.radius = 50
         self.moment = pymunk.moment_for_circle(self.mass,0,self.radius)

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import pyglet
 from pyglet.window import key
@@ -49,7 +49,7 @@ objectManager = ObjectManager()
 
 # create scenes
 gameScene = GameScene(objectManager, space)
-mainMenuScene = MainMenuScene( window, inputManager, lambda:sceneManager.changeScene(gameScene) )
+mainMenuScene = MainMenuScene(window, inputManager, lambda:sceneManager.changeScene(gameScene))
 
 # switch to main menu scene
 sceneManager.changeScene(mainMenuScene)
