@@ -9,8 +9,8 @@ class GameObject(object):
 
     def addSprite(self,spriteBatch,x,y):
         image=pyglet.image.load('../resources/penta.png')
-        image.anchor_x = image.width/2
-        image.anchor_y = image.height/2
+        image.anchor_x = int(image.width/2)
+        image.anchor_y = int(image.height/2)
         return pyglet.sprite.Sprite(image,batch=spriteBatch)
 
     def addPhyiscal(self,space,x,y):
