@@ -16,12 +16,13 @@ from ObjectManager import ObjectManager
 from GameObject import GameObject
 
 from MainMenuScene import MainMenuScene
+from GameScene import GameScene
 
 DEBUG = True
 gameName = "gameMotor2D"
 
 # setup resource path
-pyglet.resource.path = ['../resources']
+pyglet.resource.path = ['../resources/']
 pyglet.resource.reindex()
 
 #TODO configManager
@@ -46,8 +47,12 @@ sceneManager = SceneManager()
 #TODO audioManager
 objectManager = ObjectManager()
 
+# create scenes
+gameScene = GameScene(objectManager, space)
+mainMenuScene = MainMenuScene(window, inputManager, lambda:sceneManager.changeScene(gameScene))
+
 # switch to main menu scene
-sceneManager.changeScene( MainMenuScene(window, inputManager) )
+sceneManager.changeScene(mainMenuScene)
 
 # debug
 if DEBUG:
@@ -57,6 +62,8 @@ if DEBUG:
     timeElap = 0
     timeText = Text(int(timeElap), 32, (window.width/2,50), (255, 255, 255, 255))
     fpsDisplay = pyglet.clock.ClockDisplay()
+    from pudb import set_trace
+    #set_trace()
 
 def update(dt):
     global DEBUG
