@@ -62,8 +62,6 @@ if DEBUG:
     timeElap = 0
     timeText = Text(int(timeElap), 32, (window.width/2,50), (255, 255, 255, 255))
     fpsDisplay = pyglet.clock.ClockDisplay()
-    from pudb import set_trace
-    #set_trace()
 
 def update(dt):
     global DEBUG
