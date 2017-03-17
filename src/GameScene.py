@@ -13,7 +13,7 @@ class GameScene(Scene):
         self.spriteBatch = pyglet.graphics.Batch()
 
     def enter(self):
-        self.player = GameObject(self.spriteBatch,self.space,50,50)
+        self.player = GameObject(self.spriteBatch,self.space,500,500)
         self.objectManager.addObject(self.player)
 
     def update(self, dt):

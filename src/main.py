@@ -29,7 +29,7 @@ pyglet.resource.reindex()
 #TODO load config file
 
 # create window
-window = pyglet.window.Window(800,600,
+window = pyglet.window.Window(1024,768,
         vsync=not DEBUG,
         style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS,
             )
@@ -101,11 +101,11 @@ def on_mouse_motion(x, y, dx, dy):
 def on_draw():
     global DEBUG
     window.clear()
-    sceneManager.draw()
     if DEBUG:
         timeText.draw()
         fpsDisplay.draw()
         space.debug_draw(debugDrawOptions)
+    sceneManager.draw()
 
 if __name__ == '__main__':
     pyglet.clock.schedule_interval(update, 1/240.0)
