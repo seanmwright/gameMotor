@@ -18,6 +18,8 @@ from GameObject import GameObject
 from MainMenuScene import MainMenuScene
 from GameScene import GameScene
 
+from Line import Line
+
 DEBUG = True
 gameName = "gameMotor2D"
 
@@ -52,7 +54,9 @@ gameScene = GameScene(objectManager, space)
 mainMenuScene = MainMenuScene(window, inputManager, lambda:sceneManager.changeScene(gameScene))
 
 # switch to main menu scene
-sceneManager.changeScene(mainMenuScene)
+sceneManager.changeScene(gameScene)
+
+line = Line(20,30,20,400)
 
 # debug
 if DEBUG:
@@ -104,6 +108,7 @@ def on_draw():
         fpsDisplay.draw()
         space.debug_draw(debugDrawOptions)
     sceneManager.draw()
+    line.draw()
 
 if __name__ == '__main__':
     pyglet.clock.schedule_interval(update, 1/240.0)

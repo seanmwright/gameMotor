@@ -20,4 +20,5 @@ class GameScene(Scene):
         self.objectManager.updateObjects(dt)
 
     def draw(self):
+        self.objectManager.draw()
         self.spriteBatch.draw()
