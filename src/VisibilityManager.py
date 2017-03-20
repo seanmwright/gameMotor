@@ -1,5 +1,3 @@
-import sympy
-
 from sympy import Point2D
 
 from sympy.geometry import Segment
@@ -15,7 +13,7 @@ class VisibilityManager(object):
         self.rays = []
         self.lines = []
         self.polygon = []
-        self.eyePosition = (512, 334)
+        self.eyePosition = Point2D(512, 334)
 
     def addSegment(self, x1, y1, x2, y2):
         self.points.append(Point2D(x1,y1))
