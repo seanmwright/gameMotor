@@ -1,10 +1,12 @@
-from sympy import Point2D
+from sympy import Point2D, pi
+from mpmath import radians
 
 from sympy.geometry import Segment
 from sympy.geometry import Ray
 from sympy.geometry import Line
 
 from Line import Line as DrawLine
+from Polygon import Polygon as DrawPolygon
 
 class VisibilityManager(object):
     def __init__(self):
@@ -13,21 +15,29 @@ class VisibilityManager(object):
         self.rays = []
         self.lines = []
         self.polygon = []
-        self.eyePosition = Point2D(512, 334)
+        self.eyePosition = Point2D(512, 334, evalute=False)
 
     def addSegment(self, x1, y1, x2, y2):
         self.points.append(Point2D(x1,y1))
         self.points.append(Point2D(x2,y2))
         self.segments.append(Segment((x1,y1),(x2,y2)))
 
+    def addWorldBoundaries(self, width, height):
+        self.segments.append(Segment((1,1),(width,1)))
+        self.segments.append(Segment((width,1),(width,height)))
+        self.segments.append(Segment((width,height),(1,height)))
+        self.segments.append(Segment((1,height),(1,1)))
+
     def castRays(self):
-        for point in self.points:
-            self.rays.append(Ray(self.eyePosition,point))
-        for ray in self.rays:
+        vertexList = []
+        walls = []
+        for degree in range(0,360):
+            ray = Ray(self.eyePosition,angle=radians(degree), evalute=False)
             for segment in self.segments:
-                if not Line.is_parallel(ray, segment):
-                    if isinstance(ray.intersection(segment),Point2D):
-                        self.polygon.append(Point2D(ray.intersection(segment)))
+                intersection = ray.intersection(segment)
+                if len(intersection) > 0:
+                    print(str(intersection[0]))
+        #self.polygon = DrawPolygon(vertexList)
 
     def addLines(self):
         for ray in self.rays:
@@ -37,5 +47,6 @@ class VisibilityManager(object):
                 self.lines.append(DrawLine(segment.p1.x,segment.p1.y,segment.p2.x,segment.p2.y))
 
     def draw(self):
+        #self.polygon.draw()
         for line in self.lines:
             line.draw()

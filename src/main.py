@@ -19,7 +19,9 @@ from MainMenuScene import MainMenuScene
 from GameScene import GameScene
 
 DEBUG = True
-gameName = "gameMotor2D"
+WIDTH = 1024
+HEIGHT = 765
+GAMENAME = "gameMotor2D"
 
 # setup resource path
 pyglet.resource.path = ['../resources/']
@@ -29,11 +31,11 @@ pyglet.resource.reindex()
 #TODO load config file
 
 # create window
-window = pyglet.window.Window(1024,768,
+window = pyglet.window.Window(WIDTH,HEIGHT,
         vsync=not DEBUG,
         style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS,
             )
-window.set_caption(gameName)
+window.set_caption(GAMENAME)
 
 # create physics space
 space = pymunk.Space()
@@ -48,7 +50,7 @@ sceneManager = SceneManager()
 objectManager = ObjectManager()
 
 # create scenes
-gameScene = GameScene(objectManager, space)
+gameScene = GameScene(objectManager, space, WIDTH, HEIGHT)
 mainMenuScene = MainMenuScene(window, inputManager, lambda:sceneManager.changeScene(gameScene))
 
 # switch to main menu scene
