@@ -7,6 +7,8 @@ from pyglet.window import mouse
 import pymunk
 from pymunk import pyglet_util
 
+from shapely import speedups
+
 from Utils import Text
 
 from InputManager import InputManager
@@ -26,6 +28,9 @@ GAMENAME = "gameMotor2D"
 # setup resource path
 pyglet.resource.path = ['../resources/']
 pyglet.resource.reindex()
+
+if speedups.available:
+    speedups.enable()
 
 #TODO configManager
 #TODO load config file

@@ -37,15 +37,10 @@ class VisibilityManager(object):
 
     def addLines(self):
         for segment in self.segments:
-            if isinstance(segment, LineString):
-                self.lines.append(DrawLine(segment.coords[0][0],
-                                            segment.coords[0][1],
-                                            segment.coords[1][0],
-                                            segment.coords[1][1],))
-    '''
-        for ray in self.rays:
-                self.lines.append(DrawLine(ray.p1.x,ray.p1.y,ray.p2.x,ray.p2.y))
-    '''
+            self.lines.append(DrawLine(segment.coords[0][0],
+                                        segment.coords[0][1],
+                                        segment.coords[1][0],
+                                        segment.coords[1][1],))
 
     def draw(self):
         #self.polygon.draw()
