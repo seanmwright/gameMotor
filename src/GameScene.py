@@ -19,9 +19,9 @@ class GameScene(Scene):
 
     def enter(self):
         random.seed()
-        for i in range(25):
-            startx = random.randint(1,1023)
-            starty = random.randint(1,767)
+        for i in range(10):
+            startx = random.randint(1,self.width)
+            starty = random.randint(1,self.height)
             self.visibilityManager.addSegment( startx, starty, startx+random.randint(-100,100), starty+random.randint(-100,100))
 
         self.visibilityManager.addWorldBoundaries(self.width, self.height)
@@ -31,6 +31,7 @@ class GameScene(Scene):
         #self.objectManager.addObject(self.player)
 
     def update(self, dt):
+        self.visibilityManager.castRays()
         self.objectManager.updateObjects(dt)
 
     def draw(self):

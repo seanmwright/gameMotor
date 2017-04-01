@@ -19,8 +19,8 @@ from MainMenuScene import MainMenuScene
 from GameScene import GameScene
 
 DEBUG = True
-WIDTH = 1024
-HEIGHT = 765
+WIDTH = 1920
+HEIGHT = 1080
 GAMENAME = "gameMotor2D"
 
 # setup resource path
