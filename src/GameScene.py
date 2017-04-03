@@ -25,6 +25,7 @@ class GameScene(Scene):
             self.visibilityManager.addSegment( startx, starty, startx+random.randint(-100,100), starty+random.randint(-100,100))
 
         self.visibilityManager.addWorldBoundaries(self.width, self.height)
+        self.visibilityManager.castRays()
         self.visibilityManager.addLines()
         #self.player = GameObject(self.spriteBatch,self.space,500,500)
         #self.objectManager.addObject(self.player)
