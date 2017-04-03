@@ -8,9 +8,10 @@ from GameObject import GameObject
 from VisibilityManager import VisibilityManager
 
 class GameScene(Scene):
-    def __init__(self, objectManager, space, width, height):
+    def __init__(self, objectManager, inputManager, space, width, height):
         Scene.__init__(self)
         self.objectManager = objectManager
+        self.inputManager = inputManager
         self.visibilityManager = VisibilityManager()
         self.space = space
         self.spriteBatch = pyglet.graphics.Batch()
@@ -27,11 +28,13 @@ class GameScene(Scene):
         self.visibilityManager.addWorldBoundaries(self.width, self.height)
         self.visibilityManager.castRays()
         self.visibilityManager.addLines()
+        self.inputManager.push_handlers(self.visibilityManager)
         #self.player = GameObject(self.spriteBatch,self.space,500,500)
         #self.objectManager.addObject(self.player)
 
     def update(self, dt):
         self.visibilityManager.castRays()
+        self.visibilityManager.addLines()
         self.objectManager.updateObjects(dt)
 
     def draw(self):

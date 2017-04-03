@@ -26,12 +26,11 @@ class VisibilityManager(object):
         self.addSegment(width,height,1,height)
         self.addSegment(1,height,1,1)
 
-    def castRays(self, eyePosition=Point(950,5)):
-        self.eyePosition = eyePosition
+    def castRays(self):
         self.rays.clear()
         if self.method == 0:
             for point in self.points:
-                line = LineString([(self.eyePosition.x,self.eyePosition.x),(point.x,point.y)])
+                line = LineString([(self.eyePosition.x,self.eyePosition.y),(point.x,point.y)])
                 self.rays.append(line)
         if self.method == 1:
             for degree in range(0,360):
@@ -39,10 +38,11 @@ class VisibilityManager(object):
                 magnitude = 10000
                 x = cos(rads)*magnitude
                 y = sin(rads)*magnitude
-                self.rays.append(LineString([(self.eyePosition.x,self.eyePosition.x),(x,y)]))
+                self.rays.append(LineString([(self.eyePosition.x,self.eyePosition.y),(x,y)]))
         #self.polygon = DrawPolygon(vertexList)
 
     def addLines(self):
+        self.lines.clear()
         if True: #TODO debug
             for ray in self.rays:
                 self.lines.append(DrawLine(ray.coords[0][0],
@@ -59,3 +59,7 @@ class VisibilityManager(object):
         #self.polygon.draw()
         for line in self.lines:
             line.draw()
+
+    def on_mouse_motion(self, x, y):
+        self.eyePosition = Point(x, y)
+

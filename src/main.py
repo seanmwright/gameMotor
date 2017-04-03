@@ -55,7 +55,7 @@ sceneManager = SceneManager()
 objectManager = ObjectManager()
 
 # create scenes
-gameScene = GameScene(objectManager, space, WIDTH, HEIGHT)
+gameScene = GameScene(objectManager, inputManager, space, WIDTH, HEIGHT)
 mainMenuScene = MainMenuScene(window, inputManager, lambda:sceneManager.changeScene(gameScene))
 
 # switch to main menu scene
