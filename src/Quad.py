@@ -11,5 +11,8 @@ class Quad(object):
                 ('c3B',(255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255))
                 )
 
+    def changeColor(self, r, g, b):
+        self.vertexList.colors = (r, g, b, r, g, b, r, g, b, r, g, b)
+
     def draw(self):
         self.vertexList.draw(pyglet.gl.GL_QUADS)
