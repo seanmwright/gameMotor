@@ -33,8 +33,7 @@ class GameScene(Scene):
         #self.objectManager.addObject(self.player)
 
     def update(self, dt):
-        self.visibilityManager.castRays()
-        self.visibilityManager.addLines()
+        self.visibilityManager.update()
         self.objectManager.updateObjects(dt)
 
     def draw(self):

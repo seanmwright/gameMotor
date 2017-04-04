@@ -12,7 +12,7 @@ class VisibilityManager(object):
         self.segments = []
         self.rays = []
         self.lines = []
-        self.polygon = None
+        self.polygon = []
         self.eyePosition = Point(950, 500)
 
     def addSegment(self, x1, y1, x2, y2):
@@ -41,6 +41,15 @@ class VisibilityManager(object):
                 self.rays.append(LineString([(self.eyePosition.x,self.eyePosition.y),(x,y)]))
         #self.polygon = DrawPolygon(vertexList)
 
+    def calculatePolygon(self):
+        self.polygon.clear()
+        for ray in self.rays:
+            intersections = []
+            for segment in self.segments:
+                if ray.intersects(segment):
+                    intersections.append((self.eyePosition.distance(ray.intersection(segment)),ray.intersection(segment)))
+            self.polygon.append(sorted(intersections)[0][1])
+
     def addLines(self):
         self.lines.clear()
         if True: #TODO debug
@@ -55,8 +64,21 @@ class VisibilityManager(object):
                                         segment.coords[1][0],
                                         segment.coords[1][1],))
 
+        if True: #TODO debug
+            for point in self.polygon:
+                line = DrawLine(point.x-5,
+                                point.y-5,
+                                point.x+5,
+                                point.y+5)
+                line.changeColor(255,0,0)
+                self.lines.append(line)
+
+    def update(self):
+        self.castRays()
+        self.calculatePolygon()
+        self.addLines()
+
     def draw(self):
-        #self.polygon.draw()
         for line in self.lines:
             line.draw()
 
