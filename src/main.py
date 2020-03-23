@@ -7,6 +7,8 @@ from pyglet.window import mouse
 import pymunk
 from pymunk import pyglet_util
 
+from shapely import speedups
+
 from Utils import Text
 
 from InputManager import InputManager
@@ -19,21 +21,27 @@ from MainMenuScene import MainMenuScene
 from GameScene import GameScene
 
 DEBUG = True
-gameName = "gameMotor2D"
+fps = False
+WIDTH = 1920
+HEIGHT = 1080
+GAMENAME = "gameMotor2D"
 
 # setup resource path
 pyglet.resource.path = ['../resources/']
 pyglet.resource.reindex()
 
+if speedups.available:
+    speedups.enable()
+
 #TODO configManager
 #TODO load config file
 
 # create window
-window = pyglet.window.Window(1024,768,
+window = pyglet.window.Window(WIDTH,HEIGHT,
         vsync=not DEBUG,
         style=pyglet.window.Window.WINDOW_STYLE_BORDERLESS,
             )
-window.set_caption(gameName)
+window.set_caption(GAMENAME)
 
 # create physics space
 space = pymunk.Space()
@@ -48,11 +56,11 @@ sceneManager = SceneManager()
 objectManager = ObjectManager()
 
 # create scenes
-gameScene = GameScene(objectManager, space)
+gameScene = GameScene(objectManager, inputManager, space, WIDTH, HEIGHT)
 mainMenuScene = MainMenuScene(window, inputManager, lambda:sceneManager.changeScene(gameScene))
 
 # switch to main menu scene
-sceneManager.changeScene(mainMenuScene)
+sceneManager.changeScene(gameScene)
 
 # debug
 if DEBUG:
@@ -61,7 +69,8 @@ if DEBUG:
     print("vsync: "+str(window.vsync))
     timeElap = 0
     timeText = Text(int(timeElap), 32, (window.width/2,50), (255, 255, 255, 255))
-    fpsDisplay = pyglet.clock.ClockDisplay()
+    if fps:
+        fpsDisplay = pyglet.clock.ClockDisplay()
 
 def update(dt):
     global DEBUG
@@ -101,7 +110,8 @@ def on_draw():
     window.clear()
     if DEBUG:
         timeText.draw()
-        fpsDisplay.draw()
+        if fps:
+            fpsDisplay.draw()
         space.debug_draw(debugDrawOptions)
     sceneManager.draw()
 

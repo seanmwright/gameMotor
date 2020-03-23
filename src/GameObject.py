@@ -7,6 +7,9 @@ class GameObject(object):
         self.sprite = self.addSprite(spriteBatch, x, y)
         self.physics = self.addPhyiscal(space,x,y)
 
+    def addLine(self, length, angle):
+        pass
+
     def addSprite(self,spriteBatch,x,y):
         image=pyglet.image.load('../resources/penta.png')
         image.anchor_x = int(image.width/2)
@@ -25,3 +28,6 @@ class GameObject(object):
     def update(self,dt):
         self.sprite.position = self.body.position
         self.sprite.rotation = math.degrees(-self.body.angle)
+
+    def draw(self):
+        pass
