@@ -21,6 +21,7 @@ from MainMenuScene import MainMenuScene
 from GameScene import GameScene
 
 DEBUG = True
+fps = False
 WIDTH = 1920
 HEIGHT = 1080
 GAMENAME = "gameMotor2D"
@@ -68,7 +69,8 @@ if DEBUG:
     print("vsync: "+str(window.vsync))
     timeElap = 0
     timeText = Text(int(timeElap), 32, (window.width/2,50), (255, 255, 255, 255))
-    fpsDisplay = pyglet.clock.ClockDisplay()
+    if fps:
+        fpsDisplay = pyglet.clock.ClockDisplay()
 
 def update(dt):
     global DEBUG
@@ -108,7 +110,8 @@ def on_draw():
     window.clear()
     if DEBUG:
         timeText.draw()
-        fpsDisplay.draw()
+        if fps:
+            fpsDisplay.draw()
         space.debug_draw(debugDrawOptions)
     sceneManager.draw()
 

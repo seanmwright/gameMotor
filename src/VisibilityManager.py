@@ -52,7 +52,7 @@ class VisibilityManager(object):
 
     def addLines(self):
         self.lines.clear()
-        if True: #TODO debug
+        if False: #TODO debug
             for ray in self.rays:
                 self.lines.append(DrawLine(ray.coords[0][0],
                                             ray.coords[0][1],
