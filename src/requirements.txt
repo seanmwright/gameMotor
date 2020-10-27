@@ -17,7 +17,7 @@ Click==7.0
 colorama==0.4.3
 constantly==15.1.0
 contextlib2==0.6.0
-cryptography==2.8
+cryptography==3.2
 cupshelpers==1.0
 deluge==2.0.4.dev23
 distlib==0.3.0
